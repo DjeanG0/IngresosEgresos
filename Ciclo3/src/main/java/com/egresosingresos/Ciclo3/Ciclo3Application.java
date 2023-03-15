@@ -1,6 +1,6 @@
 package com.egresosingresos.Ciclo3;
 
-import com.egresosingresos.Ciclo3.modelos.Empresa;
+import com.egresosingresos.Ciclo3.models.Empresa;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfiguration;

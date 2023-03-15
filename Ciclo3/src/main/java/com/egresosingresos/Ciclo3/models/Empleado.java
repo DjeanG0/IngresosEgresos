@@ -1,4 +1,4 @@
-package com.egresosingresos.Ciclo3.modelos;
+package com.egresosingresos.Ciclo3.models;
 
 import jakarta.persistence.*;
 

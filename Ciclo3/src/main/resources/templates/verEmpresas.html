@@ -48,6 +48,29 @@
     <button type="button" class="btn btn-info"><a th:href="@{/AgregarEmpresa}">Agregar nueva empresa</a></button>
 </div>
 
+<script th:inline="javascript">
+    window.onload=function(){
+    var msg= [[${mensaje}]];
+        if (msg=="saveOK"){
+            Command : toastr["success"]("Empresa creada con éxito")
+        }
+        else if (msg=="updateOK"){
+            Command : toastr["success"]("Empresa actualizada con éxito")
+        }
+        else if (msg=="deleteOK"){
+            Command : toastr["error"]("Empresa eliminada con éxito")
+        }
+        else if (msg=="deleteError"){
+            Command : toastr["error"]("La empresa no ha sido eliminada!")
+        }
+        toastr.options={
+            "positionClass": "toast-top-right",
+            "showDuration": "10",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut",
+        }
+    }
+</script>
 
 
 </body>

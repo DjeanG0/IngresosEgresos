@@ -1,7 +1,7 @@
-package com.egresosingresos.Ciclo3.service;
+package com.egresosingresos.Ciclo3.services;
 
-import com.egresosingresos.Ciclo3.modelos.Empresa;
-import com.egresosingresos.Ciclo3.repo.EmpresaRepository;
+import com.egresosingresos.Ciclo3.models.Empresa;
+import com.egresosingresos.Ciclo3.repositories.EmpresaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -37,10 +37,10 @@ public class EmpresaService {
     //Método delete para eliminar empresas registradas
     public boolean deleteEmpresa(Integer id){
         empresaRepository.deleteById(id);
-        if (getEmpresaById(id)!=null) {   //Verifica si la empresa aún existe
-            return false;         //Existe
+        if (empresaRepository.findById(id)!=null) {   //Verifica si la empresa aún existe
+            return true;
         }
-        return true;                //Se eliminó la empresa
+        return false;
     }
 
 }
