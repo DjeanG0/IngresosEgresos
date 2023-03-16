@@ -1,7 +1,10 @@
 package com.egresosingresos.Ciclo3.controllers;
 
 import com.egresosingresos.Ciclo3.models.Empresa;
+import com.egresosingresos.Ciclo3.repositories.MovimientosRepository;
+import com.egresosingresos.Ciclo3.services.EmpleadoService;
 import com.egresosingresos.Ciclo3.services.EmpresaService;
+import com.egresosingresos.Ciclo3.services.MovimientosService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,20 +50,20 @@ public class EmpresaController {
 
     @GetMapping ("/EditarEmpresa/{id}")
     public String editEmpresa(Model model, @PathVariable Integer id, @ModelAttribute("mensaje") String mensaje){
-        Empresa emp=empresaService.getEmpresaById(id);
+        Empresa emp = empresaService.getEmpresaById(id);
         model.addAttribute("emp",emp);
         model.addAttribute("mensaje", mensaje);
         return "editarEmpresa";
     }
 
     @PostMapping ("/ActualizarEmpresa")
-    public String updateEmpresa(Empresa emp, RedirectAttributes redirectAttributes) {
+    public String updateEmpresa(@ModelAttribute("emp") Empresa emp, RedirectAttributes redirectAttributes) {
         if (empresaService.saveOrUpdateEmpresa(emp)){
             redirectAttributes.addFlashAttribute("mensaje","updateOK");
             return "redirect:/VerEmpresas";
         }
         redirectAttributes.addFlashAttribute("mensaje","updateError");
-        return "redirect: /EditarEmpresa";
+        return "redirect: /EditarEmpresa"+emp.getId();
     }
 
     @GetMapping ("/EliminarEmpresa/{id}")

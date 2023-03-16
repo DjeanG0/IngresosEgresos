@@ -35,7 +35,7 @@
             <th>Eliminar</th>
         </tr>
         <!-- Llenamos la tabla, mediante el atributo emplist desde el controlador-->
-        <tr th:each="empresa : ${emplist}">      <!-- Recorrer la lista para llenar las filas de la tabla -->
+        <tr th:each="empresa : ${emplist}">      <!-- Recorrer la lista desde el servicio para llenar las filas de la tabla -->
             <td th:text="${empresa.id}"></td>
             <td th:text="${empresa.nombre}"></td>
             <td th:text="${empresa.direccion}"></td>
