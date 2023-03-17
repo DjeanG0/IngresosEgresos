@@ -1,51 +1,153 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Agregar Nuevo Empleado</title>
-    <meta charset="UTF-8">
+    <title>Agregar nuevo Empleado</title>
+    
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <!-- Toastr CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
     <style>
-        a{
-        color:white;
-        }
-        a:hover{
-        color:black;
-        text-decoration:none;
-        }
+       .btn-primary,
+.btn-info,
+.btn-warning,
+.btn-danger {
+  margin-right: 10px;
+}
+
+.btn-primary:hover,
+.btn-info:hover,
+.btn-warning:hover,
+.btn-danger:hover {
+  background-color: gray;
+  color: white;
+}  
+
+body{
+    background-image: url("imagen.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #333;
+}
+/*Estilos para el body*/
+body {
+    background-color: #f2f2f2;
+}
+
+/*Estilos para el .container*/
+.container {
+    width: 50%;
+    margin: auto;
+    padding-top: 20px;
+}
+
+/*Estilos para el header*/
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+}
+
+/*Estilos para el h1 dentro del header*/
+header h1 {
+    margin: 0;
+}
+
+/*Estilos para las section que contienen los inputs */
+section {
+    margin-bottom: 20px;
+}
+
+/*Estilos para los label que describen los inputs*/
+label {
+    font-weight: bold;
+}
+
+/*Estilos para los input*/
+input[type="text"],
+input[type="tel"],
+input[type="date"],
+input[type="email"] {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 0 4px rgba(0,0,0,.2);
+    margin-top: 5px;
+    font-size: 16px;
+}
+
+/*Estilos para el boton de enviar*/
+.btn-primary {
+    background-color: #337ab7;
+    border-color: #337ab7;
+}
+
+/*Estilos para el boton de cancelar*/
+.btn-default {
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+/*Estilos para los botones*/
+button {
+    margin-top: 10px;
+    margin-right: 10px;
+    border-radius: 5px;
+    padding: 10px 20px;
+    color: white;
+    font-weight: bold;
+    border: none;
+}
+
+/*Estilos sobre los colores de los botones al pasar el cursor por encima*/
+button:hover {
+    background-color: #555;
+}
+
+
     </style>
 </head>
-
 <body>
+
 <div class="container">
-    <h1>Agregar nuevo empleado</h1><br>
+    <p th:inline="text" class="text-right">User: [[${#httpServletRequest.remoteUser}]]</p>
+    <button type="button" class="btn btn-danger" style="float:right"><a th:href="@{/logout}">Cerrar Sesión</a></button>
+    <h1> Agregue aqui los datos del Empleado</h1>
+    <br>
+    <!--Crear formulario para llenar los datos de la empresa y guardarlo en el objeto emp -->
     <form th:action="@{/GuardarEmpleado}" th:object="${empl}" method="post">
-        <!-- Campo para el nombre del empleado -->
+        <!--Campo para nombre-->
         <div class="row">
             <div class="form-group col-md-12">
-                <label class="col-md-3" for="nombre">Nombre del empleado:</label>
+                <label class="col-md-3" for="nombre">Nombre del Empleado:</label>
                 <div class="col-md-6">
-                    <input type="text" th:field="*{nombre}" class="form-control" id="nombre" required="required">
-                </div>
+                    <input type="text" th:field="*{nombre}" class="form-control" id="nombre" required="required"></div>
             </div>
         </div>
 
+        <!--Campo para correo-->
         <div class="row">
             <div class="form-group col-md-12">
                 <label class="col-md-3" for="correo">Correo del empleado:</label>
                 <div class="col-md-6">
-                    <input type="email" th:field="*{correo}" class="form-control" id="correo" required="required">
-                </div>
+                    <input type="email" th:field="*{correo}" class="form-control" id="correo" required="required"></div>
             </div>
         </div>
 
+        <!--Campo para empresa-->
         <div class="row">
             <div class="form-group col-md-12">
-                <label class="col-md-3" for="empresa">Empresa del empleado:</label>
+                <label class="col-md-3" for="empresa">Empresa a la que pertence:</label>
                 <div class="col-md-6">
                     <select th:field="*{empresa}" class="form-control" id="empresa" required="required">
                         <option th:each="empresa : ${emprelist}" th:text="${empresa.nombre}" th:value="${empresa.id}"></option>
@@ -54,26 +156,55 @@
             </div>
         </div>
 
+        <!--Campo para Rol-->
         <div class="row">
             <div class="form-group col-md-12">
                 <label class="col-md-3" for="rol">Rol del empleado:</label>
                 <div class="col-md-6">
-                    <Select th:field="*{rol}" class="form-control" id="rol" required="required">
+                    <select th:field="*{rol}" class="form-control" id="rol" required="required">
                         <option th:value='ROLE_ADMIN'>Administrativo</option>
                         <option th:value='ROLE_USER'>Operativo</option>
-                    </Select>
+                    </select>
                 </div>
             </div>
         </div>
 
+        <!--Campo para contraseña-->
         <div class="row">
-            <div class="col-md-2">
-                <button class="btn btn-success">Registrar Empleado</button>
+            <div class="form-group col-md-12">
+                <label class="col-md-3" for="password">Contraseña del empleado:</label>
+                <div class="col-md-6">
+                    <input type="password" th:field="*{password}" class="form-control" id="password" required="required"></div>
             </div>
         </div>
+
+        <!--Campo para Estado-->
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3" for="estado">Estado actual del empleado:</label>
+                <div class="col-md-6">
+                    <select th:field="*{estado}" class="form-control" id="estado" required="required">
+                        <option th:value=1>Activo</option>
+                        <option th:value=0>Inactivo</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+
+        <!--Boton para enviar todo y ejecutar accion -->
+        <div class="row">
+            <div class="col-md-2">
+                <button class="btn btn-success">Registrar empleado</button>
+            </div>
+        </div>
+
     </form>
+
     <br>
     <a href="javascript: history.go(-1)" class="btn btn-info" role="button">Atrás</a>
+
 </div>
 </body>
+
 </html>
