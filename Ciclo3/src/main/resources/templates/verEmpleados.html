@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Lista de Empleados - Ciclo3</title>
+    <title>Lista de Empresas</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <style>
     a{
     color:white;
@@ -17,54 +18,95 @@
     color: black;
     text-decoration:none;
     }
+
+    .nav.navbar-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-right: 300px;
+}
+
+    .logo-badmin {
+  margin-left: 100px;
+}
+
+@media (min-width: 768px) {
+  .navbar-nav {
+    float: none;
+  }
+}
+.jumbotron {
+  background: url('background.png') repeat-x, repeat-y;
+    background-position: center center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 </style>
 </head>
-<body>
+<body><br><br>
+<div class="jumbotron">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="#" class="logo-badmin" style="color:black"><img src="logo.png"></a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="#" style="color:grey"><b>Home</b></a></li>
+                <li><a href="#" style="color:grey"><b>Services</b></a></li>
+                <li><a href="#" style="color:grey"><b>About</b></a></li>
+                <li><a href="#" style="color:grey"><b>Careers</b></a></li>
+                <li><a href="#" style="color:grey"><b>Work</b></a></li>
+            </ul>
+        </div>
+    </nav>
 
-<div class="container">
-    <p th:inline="text" class="text-right">User: [[${#httpServletRequest.remoteUser}]]</p>
-    <button type="button" class="btn btn-danger" style="float:right"><a th:href="@{/logout}">Cerrar Sesión</a></button>
+    <div class="container">
+        <p th:inline="text" class="text-right">User: [[${#httpServletRequest.remoteUser}]]</p>
+        <button type="button" class="btn btn-danger" style="float:right"><a th:href="@{/logout}">Cerrar Sesión</a></button>
 
-    <h1> Lista de Empleados</h1>
-    <!--Dibujamos la tabla-->
-    <br><table class="table table-bordered">
-    <tr>
-        <th>ID</th>
-        <th>Nombre</th>
-        <th>Correo</th>
-        <th>Empresa</th>
-        <th>Rol</th>
-        <th>Estado</th>
-        <th>Movimientos</th>
-        <th>Editar</th>
-        <th>Eliminar</th>
-    </tr>
+        <h1> Lista de Empleados</h1>
+        <!--Dibujamos la tabla-->
+        <br><table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Empresa</th>
+            <th>Rol</th>
+            <th>Estado</th>
+            <th>Movimientos</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
 
-    <!--Llenamos la tabla dibujada-->
-    <!--En nuestro controller, creamos en viewEmpleados un modelo con un atributo llamado emplelist donde esta guardada la lista de todos los empleados-->
-    <tr th:each="empleado : ${emplelist}">
-        <td th:text="${empleado.id}"></td>
-        <td th:text="${empleado.nombre}"></td>
-        <td th:text="${empleado.correo}"></td>
-        <td th:text="${empleado.empresa.nombre}"></td>
-        <td th:if="${empleado.rol=='ROLE_ADMIN'}">Administrativo</td>
-        <td th:if="${empleado.rol=='ROLE_USER'}">Operativo</td>
-        <td th:if="${empleado.estado==true}">Activo</td>
-        <td th:if="${empleado.estado==false}">Inactivo</td>
-        <td><button type="button" class="btn btn-info"><a th:href="@{/Empleado/{id}/Movimientos(id=${empleado.id})}">Ver</a></button></td>
-        <td><button type="button" class="btn btn-warning"><a th:href="@{/EditarEmpleado/{id}(id=${empleado.id})}">Editar</a></button></td>
-        <td><button type="button" class="btn btn-danger"><a th:href="@{/EliminarEmpleado/{id}(id=${empleado.id})}">Eliminar</a></button></td>
-    </tr>
-</table>
+        <!--Llenamos la tabla dibujada-->
+        <!--En nuestro controller, creamos en viewEmpleados un modelo con un atributo llamado emplelist donde esta guardada la lista de todos los empleados-->
+        <tr th:each="empleado : ${emplelist}">
+            <td th:text="${empleado.id}"></td>
+            <td th:text="${empleado.nombre}"></td>
+            <td th:text="${empleado.correo}"></td>
+            <td th:text="${empleado.empresa.nombre}"></td>
+            <td th:if="${empleado.rol=='ROLE_ADMIN'}">Administrativo</td>
+            <td th:if="${empleado.rol=='ROLE_USER'}">Operativo</td>
+            <td th:if="${empleado.estado==true}">Activo</td>
+            <td th:if="${empleado.estado==false}">Inactivo</td>
+            <td><button type="button" class="btn btn-info"><a th:href="@{/Empleado/{id}/Movimientos(id=${empleado.id})}">Ver</a></button></td>
+            <td><button type="button" class="btn btn-warning"><a th:href="@{/EditarEmpleado/{id}(id=${empleado.id})}">Editar</a></button></td>
+            <td><button type="button" class="btn btn-danger"><a th:href="@{/EliminarEmpleado/{id}(id=${empleado.id})}">Eliminar</a></button></td>
+        </tr>
+    </table>
 
-    <!-- vamos a crear un boton que sirva para agregar nuevos empleados -->
-    <button type="button" class="btn btn-info"><a th:href="@{/AgregarEmpleado}">Agregar Nuevo Empleado</a></button>
-    <br><br>
-    <!-- boton que me lleva a la lista de empresas -->
-    <button type="button" class="btn btn-primary"><a th:href="@{/VerEmpresas}">Ver lista de Empresas</a></button>
-</div>
+        <!-- vamos a crear un boton que sirva para agregar nuevos empleados -->
+        <button type="button" class="btn btn-info"><a th:href="@{/AgregarEmpleado}">Agregar Nuevo Empleado</a></button>
+        <br><br>
+        <!-- boton que me lleva a la lista de empresas -->
+        <button type="button" class="btn btn-primary"><a th:href="@{/VerEmpresas}">Ver lista de Empresas</a></button>
+    </div>
 
-<script th:inline="javascript">
+    <script th:inline="javascript">
     window.onload=function(){
 
         var msg= [[${mensaje}]];
@@ -91,6 +133,6 @@
     }
 
 </script>
-
+</div>
 </body>
 </html>

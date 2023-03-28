@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Lista de Movimientos - Ciclo3</title>
+    <title>Lista de Empresas</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
@@ -9,6 +9,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
     <style>
     a{
     color:white;
@@ -17,79 +18,120 @@
     color: black;
     text-decoration:none;
     }
+
+    .nav.navbar-nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-right: 300px;
+}
+
+    .logo-badmin {
+  margin-left: 100px;
+}
+
+@media (min-width: 768px) {
+  .navbar-nav {
+    float: none;
+  }
+}
+.jumbotron {
+  background: url('background.png') repeat-x, repeat-y;
+    background-position: center center;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
 </style>
 </head>
-<body>
-
-<div class="container">
-    <p th:inline="text" class="text-right">User: [[${#httpServletRequest.remoteUser}]]</p>
-    <button type="button" class="btn btn-danger" style="float:right"><a th:href="@{/logout}">Cerrar Sesión</a></button>
-
-    <h1> Lista de Movimientos</h1>
-    <!--Dibujamos la tabla-->
-    <br><table class="table table-bordered">
-    <tr>
-        <th>ID</th>
-        <th class="text-right">Valor</th>
-        <th>Concepto</th>
-        <th>Usuario Responsable</th>
-        <th>Fecha del Movimiento</th>
-        <th>Editar</th>
-        <th>Eliminar</th>
-    </tr>
-
-    <!--Llenamos la tabla dibujada-->
-    <!--En nuestro controller, creamos en viewMovimientos un modelo con un atributo llamado movlist donde esta guardada la lista de todos los movimientos-->
-    <tr th:each="movimiento : ${movlist}">
-        <td th:text="${movimiento.id}"></td>
-        <td class="text-right" th:text="${#numbers.formatCurrency(movimiento.monto)}"></td>
-        <td th:if="${movimiento.concepto=='1'}">Papeleria</td>
-        <td th:if="${movimiento.concepto=='2'}">Servicios Publicos/privados</td>
-        <td th:if="${movimiento.concepto=='3'}">Operativos</td>
-        <td th:if="${movimiento.concepto=='4'}">Caja Menor</td>
-        <td th:if="${movimiento.concepto=='5'}">Tributario</td>
-        <td th:if="${movimiento.concepto=='6'}">Mobiliario</td>
-        <td th:if="${movimiento.concepto=='7'}">Maquinaria y Equipo</td>
-        <td th:if="${movimiento.concepto=='8'}">Nomina</td>
-        <td th:text="${movimiento.usuario.nombre}"></td>
-        <td th:text="${#dates.format(movimiento.fecha, 'dd/MM/yyyy')}"></td>
-        <td><button type="button" class="btn btn-warning"><a th:href="@{/EditarMovimiento/{id}(id=${movimiento.id})}">Editar</a></button></td>
-        <td><button type="button" class="btn btn-danger"><a th:href="@{/EliminarMovimiento/{id}(id=${movimiento.id})}">Eliminar</a></button></td>
-    </tr>
-</table>
-
-    <!-- CAMPO PARA EL AREA DE NAVEGACION -->
-    <nav aria-label="Ejemplo navegacion">
-        <ul class="pagination mt-4">
-            <li th:class="${paginaActual==estado.index} ? 'active' : '' " th:each="pagina, estado: ${paginas}" class="page-item">
-                <a th:href="@{/VerMovimientos/(pagina=${estado.index})}" class="page-link" th:text="${estado.index}+1"></a>
-            </li>
-        </ul>
+<body><br><br>
+<div class="jumbotron">
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a href="#" class="logo-badmin" style="color:black"><img src="logo.png"></a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li><a href="#" style="color:grey"><b>Home</b></a></li>
+                <li><a href="#" style="color:grey"><b>Services</b></a></li>
+                <li><a href="#" style="color:grey"><b>About</b></a></li>
+                <li><a href="#" style="color:grey"><b>Careers</b></a></li>
+                <li><a href="#" style="color:grey"><b>Work</b></a></li>
+            </ul>
+        </div>
     </nav>
 
+    <div class="container">
+        <p th:inline="text" class="text-right">User: [[${#httpServletRequest.remoteUser}]]</p>
+        <button type="button" class="btn btn-danger" style="float:right"><a th:href="@{/logout}">Cerrar Sesión</a></button>
+
+        <h1> Lista de Movimientos</h1>
+        <!--Dibujamos la tabla-->
+        <br><table class="table table-bordered">
+        <tr>
+            <th>ID</th>
+            <th class="text-right">Valor</th>
+            <th>Concepto</th>
+            <th>Usuario Responsable</th>
+            <th>Fecha del Movimiento</th>
+            <th>Editar</th>
+            <th>Eliminar</th>
+        </tr>
+
+        <!--Llenamos la tabla dibujada-->
+        <!--En nuestro controller, creamos en viewMovimientos un modelo con un atributo llamado movlist donde esta guardada la lista de todos los movimientos-->
+        <tr th:each="movimiento : ${movlist}">
+            <td th:text="${movimiento.id}"></td>
+            <td class="text-right" th:text="${#numbers.formatCurrency(movimiento.monto)}"></td>
+            <td th:if="${movimiento.concepto=='1'}">Papeleria</td>
+            <td th:if="${movimiento.concepto=='2'}">Servicios Publicos/privados</td>
+            <td th:if="${movimiento.concepto=='3'}">Operativos</td>
+            <td th:if="${movimiento.concepto=='4'}">Caja Menor</td>
+            <td th:if="${movimiento.concepto=='5'}">Tributario</td>
+            <td th:if="${movimiento.concepto=='6'}">Mobiliario</td>
+            <td th:if="${movimiento.concepto=='7'}">Maquinaria y Equipo</td>
+            <td th:if="${movimiento.concepto=='8'}">Nomina</td>
+            <td th:text="${movimiento.usuario.nombre}"></td>
+            <td th:text="${#dates.format(movimiento.fecha, 'dd/MM/yyyy')}"></td>
+            <td><button type="button" class="btn btn-warning"><a th:href="@{/EditarMovimiento/{id}(id=${movimiento.id})}">Editar</a></button></td>
+            <td><button type="button" class="btn btn-danger"><a th:href="@{/EliminarMovimiento/{id}(id=${movimiento.id})}">Eliminar</a></button></td>
+        </tr>
+    </table>
+
+        <!-- CAMPO PARA EL AREA DE NAVEGACION -->
+        <nav aria-label="Ejemplo navegacion">
+            <ul class="pagination mt-4">
+                <li th:class="${paginaActual==estado.index} ? 'active' : '' " th:each="pagina, estado: ${paginas}" class="page-item">
+                    <a th:href="@{/VerMovimientos/(pagina=${estado.index})}" class="page-link" th:text="${estado.index}+1"></a>
+                </li>
+            </ul>
+        </nav>
 
 
-    <!-- Campo para ver la suma de TODOS LOS MOVIMIENTOS FILTRADOS -->
-    <div class="row">
-        <div class="form-group col-md-12">
-            <label class="col-md-3" for="SumaMontos">Total Movimientos:</label>
-            <div class="col-md-6">
-                <p th:text="${#numbers.formatCurrency(SumaMontos)}" class="form-control" id="SumaMontos"></p>
+
+        <!-- Campo para ver la suma de TODOS LOS MOVIMIENTOS FILTRADOS -->
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="col-md-3" for="SumaMontos">Total Movimientos:</label>
+                <div class="col-md-6">
+                    <p th:text="${#numbers.formatCurrency(SumaMontos)}" class="form-control" id="SumaMontos"></p>
+                </div>
             </div>
         </div>
+
+        <!-- vamos a crear un boton que sirva para agregar nuevos movimientos -->
+        <button type="button" class="btn btn-info"><a th:href="@{/AgregarMovimiento}">Agregar Nuevo Movimiento</a></button>
+        <br><br>
+        <!-- boton que me lleva a la lista de empresas -->
+        <button type="button" class="btn btn-primary"><a th:href="@{/VerEmpresas}">Ver lista de Empresas</a></button>
+        <br><br>
+        <!-- boton que me lleva a la lista de empleados -->
+        <button type="button" class="btn btn-primary"><a th:href="@{/VerEmpleados}">Ver lista de Empleados</a></button>
     </div>
 
-    <!-- vamos a crear un boton que sirva para agregar nuevos movimientos -->
-    <button type="button" class="btn btn-info"><a th:href="@{/AgregarMovimiento}">Agregar Nuevo Movimiento</a></button>
-    <br><br>
-    <!-- boton que me lleva a la lista de empresas -->
-    <button type="button" class="btn btn-primary"><a th:href="@{/VerEmpresas}">Ver lista de Empresas</a></button>
-    <br><br>
-    <!-- boton que me lleva a la lista de empleados -->
-    <button type="button" class="btn btn-primary"><a th:href="@{/VerEmpleados}">Ver lista de Empleados</a></button>
-</div>
-
-<script th:inline="javascript">
+    <script th:inline="javascript">
     window.onload=function(){
 
         var msg= [[${mensaje}]];
@@ -116,6 +158,6 @@
     }
 
 </script>
-
+</div>
 </body>
 </html>

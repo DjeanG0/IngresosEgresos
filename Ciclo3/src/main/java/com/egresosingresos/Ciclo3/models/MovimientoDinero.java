@@ -1,6 +1,6 @@
 package com.egresosingresos.Ciclo3.models;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -9,7 +9,7 @@ import java.util.Date;
 @Table(name="Movimientos")
 public class MovimientoDinero {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     private long monto;
     private String concepto;

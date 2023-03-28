@@ -17,20 +17,23 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private DataSource dataSource;
+
     @Autowired
     CustomSuccessHandler customSuccessHandler;
+
     @Autowired
     public void configAuthentication(AuthenticationManagerBuilder auth) throws Exception{
         auth.jdbcAuthentication().passwordEncoder(new BCryptPasswordEncoder())
                 .dataSource(dataSource)
-                .usersByUsernameQuery("select correo, password, estado from empleado where correo = ?")
-                .authoritiesByUsernameQuery("select correo, rol from empleado WHERE correo = ?");
+                .usersByUsernameQuery("select correo,password,estado from empleado where correo=?")
+                .authoritiesByUsernameQuery("select correo, rol from empleado where correo=?");
     }
 
+
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/","/VerEmpresas/**").hasRole("ADMIN")   //**Accede a las url posteriores a VerEmpresas
+                .antMatchers("/","VerEmpresas/**").hasRole("ADMIN")
                 .antMatchers("/VerEmpleados/**").hasRole("ADMIN")
                 .antMatchers("/Empresa/**").hasRole("ADMIN")
                 .antMatchers("/Empleado/**").hasRole("ADMIN")
@@ -40,7 +43,5 @@ public class SecConfig extends WebSecurityConfigurerAdapter {
                 .and().formLogin().successHandler(customSuccessHandler)
                 .and().exceptionHandling().accessDeniedPage("/Denegado")
                 .and().logout().permitAll();
-
     }
-
 }

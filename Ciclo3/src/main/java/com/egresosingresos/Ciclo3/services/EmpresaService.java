@@ -10,37 +10,40 @@ import java.util.List;
 
 @Service
 public class EmpresaService {
-    @Autowired  //Conecta esta clase con el repositorio de empresa
-    EmpresaRepository empresaRepository;
+    @Autowired //Conectamos esta clase con el repository de Empresa
+    EmpresaRepository empresaRepository; //Creamos un objeto tipo EmpresaRepository para poder usar los metodos que dicha clase hereda
 
-    //Método que retorna la lista de empresas usando metodos heredados de JpaRepository
+    //Metodo que retornará la lista de empresas usando metodos heredados del jpaRepository
     public List<Empresa> getAllEmpresas(){
         List<Empresa> empresaList = new ArrayList<>();
-        empresaRepository.findAll().forEach(empresa -> empresaList.add(empresa)); //Se recorre el objeto iterable y se buscan las empresas para ponerlas en la lista de empresas
+        empresaRepository.findAll().forEach(empresa -> empresaList.add(empresa));  //Recorremos el iterable que regresa el metodo findAll del Jpa y lo guardamos en la lista creada
         return empresaList;
     }
 
-    //Método que trae un objeto de tipo empresa por el id
+    //Metodo que me trae un objeto de tipo Empresa cuando cuento con el id de la misma
     public Empresa getEmpresaById(Integer id){
         return empresaRepository.findById(id).get();
     }
 
-    //Método para guardar o actualizar objetos de tipo empresa
+    //Metodo para guardar o actualizar objetos de tipo Empresa
     public boolean saveOrUpdateEmpresa(Empresa empresa){
-        Empresa emp = empresaRepository.save(empresa);
+        Empresa emp=empresaRepository.save(empresa);
         if (empresaRepository.findById(emp.getId())!=null){
             return true;
         }
         return false;
     }
 
-    //Método delete para eliminar empresas registradas
+    //Metodo para eliminar empresas registradas teniendo el id
     public boolean deleteEmpresa(Integer id){
-        empresaRepository.deleteById(id);
-        if (empresaRepository.findById(id)!=null) {   //Verifica si la empresa aún existe
+        empresaRepository.deleteById(id);  //Eliminar
+
+        if (empresaRepository.findById(id)!=null){  //Verificacion del servicio eliminacion
             return true;
         }
         return false;
     }
+
+
 
 }
