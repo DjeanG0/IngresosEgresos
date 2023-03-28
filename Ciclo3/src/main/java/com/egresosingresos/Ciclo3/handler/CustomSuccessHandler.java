@@ -6,9 +6,8 @@ import org.springframework.security.web.DefaultRedirectStrategy;
 import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -18,10 +17,10 @@ import java.util.List;
 public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy();
 
-    protected void handle(HttpServerletRequest request, HttpServerletResponse response, Authentication authentication)
+    protected void handle(HttpServletRequest request, HttpServletResponse response, Authentication authentication)
         throws IOException{
         String targetUrl = determineTargetUrl(authentication); //Llamo al metodo que me da la url a donde debo ir
-        if(response.isCommited()){
+        if(response.isCommitted()){
             System.out.println("No se puede redireccionar");
             return;
         }
@@ -39,7 +38,7 @@ public class CustomSuccessHandler extends SimpleUrlAuthenticationSuccessHandler 
         }
 
         if(esAdministrativo(roles)){
-            url = "/VerEmpresas";
+            url = "/VerEmpresas";      //Url del navegador
         } else if(esOperativo(roles)){
             url = "/VerMovimientos";
         } else{

@@ -5,11 +5,9 @@ import com.egresosingresos.Ciclo3.models.Empleado;
 import com.egresosingresos.Ciclo3.models.Empresa;
 import com.egresosingresos.Ciclo3.services.EmpleadoService;
 import com.egresosingresos.Ciclo3.services.EmpresaService;
-import com.egresosingresos.Ciclo3.services.MovimientosService;
-import com.fasterxml.jackson.annotation.JsonCreator.Mode;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.context.annotation.Bean;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,7 +49,7 @@ public class EmpleadoController {
 
     @PostMapping("/GuardarEmpleado")
     public String saveEmpleado(Empleado empl, RedirectAttributes redirectAttributes){
-        String passEncriptada = movimientosController.passwordEncoder().encode(empl.getPassword());
+        String passEncriptada = passwordEncoder().encode(empl.getPassword());
         empl.setPassword(passEncriptada);
         if(empleadoService.saveOrUpdateEmpleado(empl)){
             redirectAttributes.addFlashAttribute("mensaje", "saveOK");
@@ -74,9 +72,9 @@ public class EmpleadoController {
     @PostMapping("/ActualizarEmpleado")
     public String updateEmpleado(@ModelAttribute("empl") Empleado empl, RedirectAttributes redirectAttributes){
         Integer id = empl.getId(); //Obtener el id del objeto empleado
-        String Oldpass = empleadoService.getEmpleadoById(id).get().getPassword();
+        String Oldpass = empleadoService.getEmpleadoById(id).get().getPassword(); //Con ese Id consultamos si password esta en DB
         if(!empl.getPassword().equals(Oldpass)){
-            String passEncriptada = movimientosController.passwordEncoder().encode(empl.getPassword());
+            String passEncriptada = passwordEncoder().encode(empl.getPassword());
             empl.setPassword(passEncriptada);
         }
         if(empleadoService.saveOrUpdateEmpleado(empl)){
@@ -102,6 +100,12 @@ public class EmpleadoController {
         List<Empleado> listaEmpleados = empleadoService.obtenerPorEmpresa(id);
         model.addAttribute("emplelist", listaEmpleados);
         return "verEmpleados";
+    }
+
+    //Metodo para encriptar contraseñas
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
 }

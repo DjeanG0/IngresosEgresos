@@ -7,12 +7,10 @@ import com.egresosingresos.Ciclo3.services.EmpleadoService;
 import com.egresosingresos.Ciclo3.services.EmpresaService;
 import com.egresosingresos.Ciclo3.services.MovimientosService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +35,7 @@ public class MovimientosController {
     public String viewMovimientos(@RequestParam(value = "pagina", required = false, defaultValue = "1") int NumeroPagina,
         @RequestParam(value = "medida", required = false, defaultValue = "5") int medida,
         Model model, @ModelAttribute("mendaje") String mensaje){
-        page<MovimientoDinero> paginaMovimientos = movimientosRepository.findAll(PageRequest.of(NumeroPagina, medida));
+        Page<MovimientoDinero> paginaMovimientos = movimientosRepository.findAll(PageRequest.of(NumeroPagina, medida));
         model.addAttribute("movlist", paginaMovimientos.getContent());
         model.addAttribute("paginas", new int[paginaMovimientos.getTotalPages()]);
         model.addAttribute("paginaActual", NumeroPagina);
@@ -121,12 +119,5 @@ public class MovimientosController {
     public String accesoDenegado(){
         return "accessDenied";
     }
-
-    //Metodo para encriptar contraseñas
-    @Bean
-    public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
-    }
-
 
 }
