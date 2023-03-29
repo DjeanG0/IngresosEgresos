@@ -1,13 +1,5 @@
 # Web application to manage income and expenses of companies
-What i used:
-Java,
-Maven,
-Jpa repository and hibernate,
-MVC,
-controllers,
-services,
-PostgreSQL,
-,JDBC.
+What i used:Java, Maven, Jpa repository and hibernate, MVC, controllers, microservices, PostgreSQL,JDBC.
 
 Se requiere un aplicativo web para que un administrador pueda gestionar los
 ingresos y egresos de su empresa. El sistema debería permitir visualizar los
