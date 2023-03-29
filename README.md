@@ -1,7 +1,7 @@
 # Web application to manage income and expenses of companies
 
-Se requiere un aplicativo web para que un administrador pueda gestionar los
-ingresos y egresos de su empresa. El sistema debería permitir visualizar los
+Aplicativo web para que un administrador pueda gestionar los
+ingresos y egresos de su empresa. El sistema permite visualizar los
 totales de la empresa para que el gerente pueda tomar decisiones sobre la
 situación ﬁnanciera.
 
