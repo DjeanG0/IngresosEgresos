@@ -1,4 +1,9 @@
-a {
+body {
+     font-family: Arial, sans-serif;
+     background-color: #F2F2F2;
+}
+
+a{
     color: white;
 }
 

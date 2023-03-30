@@ -1,0 +1,81 @@
+body {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+  background-color: #f5f5f5;
+}
+
+/* Estilos para la barra de navegación */
+.navbar {
+  background-color: #2980b9;
+}
+
+.navbar-brand {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.navbar-nav li a {
+  color: #fff;
+  font-weight: bold;
+}
+
+.navbar-nav li a:hover {
+  color: #2980b9;
+}
+
+/* Estilos para el encabezado principal */
+.jumbotron {
+  background-color: #fff;
+  background-image: url('https://via.placeholder.com/1600x500.png?text=Banner+de+la+empresa');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.jumbotron h1 {
+  font-size: 48px;
+  font-weight: bold;
+  color: #2980b9;
+  text-align: center;
+  text-shadow: 2px 2px #fff;
+  margin-top: 100px;
+}
+
+/* Estilos para el formulario */
+form {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+form label {
+  font-weight: bold;
+}
+
+form input[type=text], form input[type=email], form select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+form button {
+  background-color: #2980b9;
+  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #fff;
+  color: #2980b9;
+  border: 1px solid #2980b9;
+}
