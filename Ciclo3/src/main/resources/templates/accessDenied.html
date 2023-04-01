@@ -6,11 +6,48 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-    <link rel="stylesheet" href="../styles/accessDenied.css">
+    <!-- <link rel="stylesheet" href="../styles/accessDenied.css"> -->
+    <link rel="icon" type="image/x-icon" href="../files/enterprise.ico">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<style>body {
+    font-family: Arial, sans-serif;
+    background-color: #F2F2F2;
+}
 
+.jumbotron {
+    background-color: #fff;
+    margin-top: 50px;
+    padding: 50px;
+    text-align: center;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.navbar {
+    background-color: #333;
+}
+
+.navbar-header a img {
+    height: 50px;
+    margin-right: 10px;
+}
+
+.navbar-nav li {
+    margin-right: 20px;
+}
+
+.navbar-nav li a {
+    color: #ddd !important;
+    font-weight: bold;
+}
+
+h1 {
+    color: #333;
+    font-size: 2em;
+    margin-top: 50px;
+}</style>
 
 </head>
 <body>
@@ -18,7 +55,8 @@
     <nav class="navbar navbar-expand-lg navbar-dark">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a href="#" class="logo-badmin" style="color:black"><img src="logo.png"></a>
+                <a href="/VerMovimientos" class="logo" style="color:white"><img src="../files/back.ico" alt="icono"></a>
+
             </div>
             <ul class="nav navbar-nav">
                 <li><a href="#">Home</a></li>
@@ -29,7 +67,8 @@
             </ul>
         </div>
     </nav>
-    <h1>No tienes acceso a esta área</h1>
+    <h1>No tienes acceso a esta área</h1><br>
+    <a href="javascript: history.go(-1)" class="btn btn-info" role="button">Atrás</a>
 </div>
 </body>
 </html>
