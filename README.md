@@ -1,18 +1,5 @@
 # Web application to manage income and expenses of companies
 
-Aplicativo web para que un administrador pueda gestionar los
-ingresos y egresos de su empresa. El sistema permite visualizar los
-totales de la empresa para que el gerente pueda tomar decisiones sobre la
-situación ﬁnanciera.
+Web application for an administrator to manage the income and expenses of their company. The system allows for the visualization of the company's totals so that the manager can make decisions about the financial situation.
 
-El procedimiento de registro de gastos y ventas es un proceso que puede ser
-tedioso, por lo que el administrador del sistema puede decidir delegar el
-registro a personal contable. Por tal motivo, la aplicación debe permitir la
-creación de nuevos usuarios que deben tener la posibilidad de efectuar
-nuevos movimientos de dinero. Sin embargo, dichos usuarios no deben ser
-capaces de modiﬁcar información sensible de la empresa, ni tampoco crear
-nuevos usuarios, con el ﬁn de evitar riesgos de corrupción.
-Adicionalmente, debido a que las transacciones contables son
-supremamente delicadas, el sistema debería permitir llevar una trazabilidad
-de quién registró cada transacción, por lo cual el sistema debe contar con un
-sistema de autenticación.
+The process of registering expenses and sales can be tedious, so the system administrator may decide to delegate registration to accounting personnel. Therefore, the application should allow for the creation of new users who should have the ability to make new money movements. However, these users should not be able to modify sensitive company information or create new users in order to avoid corruption risks. Additionally, since accounting transactions are extremely sensitive, the system should allow for traceability of who registered each transaction, which is why the system should have an authentication system.
